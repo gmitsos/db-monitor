@@ -10,8 +10,8 @@ final class LoggerService
 
     public function __construct(string $logFile = null)
     {
-        $defaultLogFile = dirname(__DIR__, 4).'/log/db_queries.log';
-        echo $defaultLogFile;
+        $defaultLogFile = dirname(__DIR__, 5).'/log/db_queries.log';
+
         $this->logFile = $logFile ?? $defaultLogFile;
 
         $logDir = dirname($this->logFile);
