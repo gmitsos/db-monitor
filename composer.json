@@ -1,0 +1,17 @@
+{
+    "name": "gmitsos/db-monitor",
+    "description": "A simple package to monitor queries towards database",
+    "type": "composer-plugin",
+    "autoload": {
+        "psr-4": {
+            "Gmitsos\\DbMonitor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gmitsos",
+            "email": "gmitsos@epignosishq.com"
+        }
+    ],
+    "require": {}
+}
