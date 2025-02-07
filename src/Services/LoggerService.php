@@ -23,14 +23,20 @@ final class LoggerService
     public function log(string $query, float $timeSpent): void
     {
         $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown endpoint';
-
-        $timeSpent = number_format($timeSpent / 1_000_000, 4);
+        microtime(true) - $timeSpent;
+        $timeSpent = number_format((microtime(true) - $timeSpent) / 1000000, 4);
 
         $logMessage = '['.
             date('Y-m-d H:i:s').
             "]  \nExecuted Query: $query | \nTime Spent: $timeSpent seconds | \nEndpoint: $endpoint |\n";
 
-
+        $start = microtime(true);
         file_put_contents($this->logFile, $logMessage, FILE_APPEND);
+        $end = microtime(true);
+
+        $writeLog = "Write took : $end-$start seconds\n";
+
+        file_put_contents($this->logFile, $writeLog, FILE_APPEND);
+
     }
 }
