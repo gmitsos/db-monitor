@@ -24,31 +24,12 @@ final class LoggerService
     {
         $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown endpoint';
 
-        $backtrace = debug_backtrace();
-        $callingFunction = $backtrace[2]['function'] ?? 'unknown function';
-        $callingClass = $backtrace[2]['class'] ?? '';
+        $timeSpent = number_format($timeSpent / 1_000_000, 4);
 
         $logMessage = '['.
             date('Y-m-d H:i:s').
-            "]  \nExecuted Query: $query | \nTime Spent: $timeSpent seconds | \nEndpoint: $endpoint | \nOrigin: $callingClass::$callingFunction\n";
+            "]  \nExecuted Query: $query | \nTime Spent: $timeSpent seconds | \nEndpoint: $endpoint |\n";
 
-        $logMessage .= "Backtrace:\n";
-
-        foreach ($backtrace as $index => $frame) {
-            $file = $frame['file'] ?? 'unknown file';
-            $line = $frame['line'] ?? 'unknown line';
-            $function = $frame['function'] ?? 'unknown function';
-            $class = $frame['class'] ?? '';
-            $args = $frame['args'] ?? [];
-
-            $formattedArgs = [];
-            foreach ($args as $arg) {
-                $formattedArgs[] = is_object($arg) ? get_class($arg) : var_export($arg, true);
-            }
-            $argList = implode(', ', $formattedArgs);
-
-            $logMessage .= "#$index $class::$function called at [$file:$line] with args: ($argList)\n";
-        }
 
         file_put_contents($this->logFile, $logMessage, FILE_APPEND);
     }
