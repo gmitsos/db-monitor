@@ -19,15 +19,15 @@ class Monitor
         $this->analyzerService = new AnalyzerService();
     }
 
-    public function monitor(string $query): void
+    public function monitor(string $query, float $timeSpent): void
     {
-        $this->loggerService->log($query);
+        $this->loggerService->log($query, $timeSpent);
         $this->analyzerService->analyze($query);
     }
 
-    public function log(string $query): void
+    public function log(string $query, float $timeSpent): void
     {
-        $this->loggerService->log($query);
+        $this->loggerService->log($query, $timeSpent);
     }
 
     public function analyze(string $query): void
