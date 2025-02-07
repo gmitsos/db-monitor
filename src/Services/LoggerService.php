@@ -30,15 +30,7 @@ final class LoggerService
             date('Y-m-d H:i:s').
             "]  \nExecuted Query: $query | \nTime Spent: $timeSpent seconds | \nEndpoint: $endpoint |\n";
 
-        $start = microtime(true);
         file_put_contents($this->logFile, $logMessage, FILE_APPEND);
-        $end = microtime(true);
-
-        $final = $end - $start;
-
-        $writeLog = "Write took : $final\n";
-
-        file_put_contents($this->logFile, $writeLog, FILE_APPEND);
 
     }
 }
