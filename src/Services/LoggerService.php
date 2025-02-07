@@ -34,7 +34,9 @@ final class LoggerService
         file_put_contents($this->logFile, $logMessage, FILE_APPEND);
         $end = microtime(true);
 
-        $writeLog = "Write took : $end-$start seconds\n";
+        $final = $end - $start;
+
+        $writeLog = "Write took : $final\n";
 
         file_put_contents($this->logFile, $writeLog, FILE_APPEND);
 
