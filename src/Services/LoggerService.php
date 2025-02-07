@@ -8,9 +8,15 @@ final class LoggerService
 {
     private string $logFile;
 
-    public function __construct(string $logFile = __DIR__.'/../../../../log/db_queries.log')
+    public function __construct(string $logFile = null)
     {
-        $this->logFile = $logFile;
+        $defaultLogFile = dirname(__DIR__, 4).'/log/db_queries.log';
+        $this->logFile = $logFile ?? $defaultLogFile;
+
+        $logDir = dirname($this->logFile);
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
     }
 
     public function log(string $query, float $timeSpent): void
