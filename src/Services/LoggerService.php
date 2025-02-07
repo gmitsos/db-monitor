@@ -8,7 +8,7 @@ final class LoggerService
 {
     private string $logFile;
 
-    public function __construct(string $logFile = __DIR__.'/db_queries.log')
+    public function __construct(string $logFile = __DIR__.'/../../../../log/db_queries.log')
     {
         $this->logFile = $logFile;
     }
@@ -17,9 +17,9 @@ final class LoggerService
     {
         $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown endpoint';
 
-        $backtrace = debug_backtrace();
-        $callingFunction = $backtrace[1]['function'] ?? 'unknown function';
-        $callingClass = $backtrace[1]['class'] ?? '';
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+        $callingFunction = $backtrace[2]['function'] ?? 'unknown function';
+        $callingClass = $backtrace[2]['class'] ?? '';
 
         $logMessage = '['.
             date('Y-m-d H:i:s').
