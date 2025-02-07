@@ -13,9 +13,18 @@ final class LoggerService
         $this->logFile = $logFile;
     }
 
-    public function log(string $query): void
+    public function log(string $query, float $timeSpent): void
     {
-        $logMessage = '['.date('Y-m-d H:i:s')."] Executed Query: $query".PHP_EOL;
+        $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown endpoint';
+
+        $backtrace = debug_backtrace();
+        $callingFunction = $backtrace[1]['function'] ?? 'unknown function';
+        $callingClass = $backtrace[1]['class'] ?? '';
+
+        $logMessage = '['.
+            date('Y-m-d H:i:s').
+            "]  \nExecuted Query: $query | \nTime Spent: $timeSpent seconds | \nEndpoint: $endpoint | \nOrigin: $callingClass::$callingFunction".PHP_EOL;
+
         file_put_contents($this->logFile, $logMessage, FILE_APPEND);
     }
 }
