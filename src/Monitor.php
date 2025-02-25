@@ -13,9 +13,9 @@ class Monitor
 
     private AnalyzerService $analyzerService;
 
-    public function __construct()
+    public function __construct(string $logFile)
     {
-        $this->loggerService = new LoggerService();
+        $this->loggerService = new LoggerService($logFile);
         $this->analyzerService = new AnalyzerService();
     }
 
