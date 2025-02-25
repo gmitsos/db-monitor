@@ -23,8 +23,6 @@ final class LoggerService
     public function log(string $query, float $timeSpent): void
     {
         $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown endpoint';
-        microtime(true) - $timeSpent;
-        $timeSpent = number_format((microtime(true) - $timeSpent) / 1000000, 4);
 
         $logMessage = '['.
             date('Y-m-d H:i:s').
